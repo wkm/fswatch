@@ -17,7 +17,7 @@ Watch a specific path:
 
 	$ fswatch -d / ls -l
 
-Wait at least 5 seocnds before refreshing using deferral:
+Wait at least 5 seconds before refreshing using deferral:
 
 	$ fswatch -t5 ls -l
 
@@ -37,4 +37,6 @@ You can also use `@fspathscolon` for colon-separated paths and `@fspatchcomma` f
 
 ## Examples
 
-	$ fswatch rsync -av . devbox:/devfolder-on-devbox/
+Automatically rsync on changes:
+
+	$ fswatch -t 5 "rsync -av . devbox:/devfolder-on-devbox/"
