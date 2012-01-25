@@ -13,6 +13,10 @@ On file system change execute `ls -l`:
 
     $ fswatch ls -l
 
+Watch a specific path:
+
+	$ fswatch -d / ls -l
+
 Wait at least 5 seocnds before refreshing using deferral:
 
 	$ fswatch -t5 ls -l
@@ -25,10 +29,11 @@ If you want to pass the paths which have changed as a parameter to the command:
 
 	$ fswatch -p echo
 
-If you want to place the paths somewhere other than at the end, use the `%fspaths` token:
+If you want to place the paths somewhere other than at the end, use the `@fspaths` token:
 
-	$ fswatch -p "echo $fspaths | wc -l"
+	$ fswatch -p "echo @fspaths | wc -l"
 
+You can also use `@fspathscolon` for colon-separated paths and `@fspatchcomma` for comma-separated paths.
 
 ## Examples
 
