@@ -7,8 +7,8 @@ Gem::Specification.new do |s|
   s.version     = Fswatch::VERSION
   s.authors     = ["Wiktor Macura"]
   s.email       = ["wiktor@tumblr.com"]
-  s.homepage    = "http://wiktormacura.com"
-  s.summary     = %q{Trivial script for triggering a script on file system change (on OS X)}
+  s.homepage    = "http://github.com/wkm/fswatch"
+  s.summary     = %q{A program for triggering a script on file system change (on OS X)}
   s.description = %q{}
 
   s.rubyforge_project = "fswatch"
