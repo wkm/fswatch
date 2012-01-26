@@ -30,12 +30,12 @@ A utility for triggering a command on file system change.
   fsevent = FSEvent.new 
   fsevent.watch dir, { :latency => opts[:throttle], :no_defer => true } do |directories|
     print red, "\n\n--- Changed: ", bold, blue, directories.inspect, reset, "\n"
-    p @process
-    if @process && !@process.exited?
-    	print red, "!!! Sending kill: #{@process.pid}", reset, "\n"
-  		@process.kill
-  	else
-  		print "!!! Process exited #{@process.pid}\n"
+    if @processPid 
+      status = Process.wait(@processPid, Process::WNOHANG)
+      if status == nil
+      	print red, "!!! Killing #{@processPid}", reset, "\n"
+    		Process.kill("KILL", @processPid)
+      end
   	end
 
     command = ARGV.join(' ')
@@ -47,12 +47,9 @@ A utility for triggering a command on file system change.
     	command << ' ' << directories.join(' ')
     end
      
-    IO.popen([command, :err=>[:child, :out]]) { |out| 
-    	puts out.gets
+    @processPid = fork {
+      system(command)
     }
-
-    @process = $?
-    p @process
   end
   
   fsevent.run
