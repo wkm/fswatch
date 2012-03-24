@@ -13,7 +13,7 @@ module FSWatch
     print red, "\n\n--- Changed: ", bold, blue, directories.inspect, reset, "\n"
     if @processPid 
       status = Process.wait(@processPid, Process::WNOHANG)
-      if status == nil
+      if @opts[:kill] && status == nil
         print red, "!!! Killing #{@processPid}", reset, "\n"
         Process.kill("KILL", @processPid)
       end
@@ -43,7 +43,7 @@ A utility for triggering a command on file system change.
     opt :start, "whether the command should be executed immediately on start", :default => true
 		opt :dir, "the directory to watch", :default => '.'
 		opt :throttle, "only allow one fsevent in the given amount of seconds", :default => 1
-		opt :kill, "forcibly restart the command if it's still running during an fs trigger", :short => :x
+		opt :kill, "forcibly restart the command if it's still running during an fs trigger", :short => :x, :default => false
 		opt :paths, "append the changed paths when calling the command"
 	end
 	  
